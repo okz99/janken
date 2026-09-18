@@ -3,72 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>じゃんけんゲーム</title>
+<title>スタイリッシュじゃんけん</title>
 <style>
   body {
-    font-family: sans-serif;
-    text-align: center;
-    margin-top: 50px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    overflow: hidden;
   }
-  .buttons button {
+  .header {
+    margin-top: 5vh;
     font-size: 24px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
-  #result {
-    font-size: 32px;
-    margin-top: 20px;
-    color: #ff0000;
+  .display-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   .choices {
-    font-size: 20px;
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 400px;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+  .choice-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .choice-box .label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 15px;
+  }
+  .choice-box span {
+    font-size: 60px;
+  }
+  #result {
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    height: 50px;
+  }
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8vh;
+    padding-top: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  }
+  .buttons button {
+    font-size: 18px;
+    padding: 15px 25px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    outline: none;
+    font-weight: bold;
+  }
+  .buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
+  }
+  .buttons button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(255, 126, 95, 0.4);
+  }
+  .emoji {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
   }
 </style>
 </head>
 <body>
 
-<div>じゃんけんゲーム</div>
+<div class="header">JANKEN GAME</div>
+
+<div class="display-area">
+  <div class="choices">
+    <div class="choice-box">
+      <div class="label">あなた</div>
+      <span id="user-choice" class="emoji">❔</span>
+    </div>
+    <div class="choice-box">
+      <div class="label">あいて</div>
+      <span id="comp-choice" class="emoji">❔</span>
+    </div>
+  </div>
+  <div id="result"></div>
+</div>
 
 <div class="buttons">
-  <button onclick="play(0)">グー</button>
-  <button onclick="play(1)">チョキ</button>
-  <button onclick="play(2)">パー</button>
+  <button onclick="play(0)">✊ グー</button>
+  <button onclick="play(1)">✌️ チョキ</button>
+  <button onclick="play(2)">✋ パー</button>
 </div>
-
-<div class="choices">
-  <div>あなた: <span id="user-choice">-</span></div>
-  <div>あいて: <span id="comp-choice">-</span></div>
-</div>
-
-<div id="result"></div>
 
 <script>
+  const emojis = ['✊', '✌️', '✋'];
+  
   function play(userChoice) {
-    const choices = ['グー', 'チョキ', 'パー'];
     const compChoice = Math.floor(Math.random() * 3);
 
-    document.getElementById('user-choice').textContent = choices[userChoice];
-    document.getElementById('comp-choice').textContent = choices[compChoice];
+    document.getElementById('user-choice').textContent = emojis[userChoice];
+    document.getElementById('comp-choice').textContent = emojis[compChoice];
 
-    let resultMsg = '';
+    let resultElement = document.getElementById('result');
+    
     if (userChoice === compChoice) {
-      resultMsg = '引き分け';
+      resultElement.textContent = 'DRAW';
+      resultElement.style.color = '#ffd700';
     } else if (
       (userChoice === 0 && compChoice === 1) ||
       (userChoice === 1 && compChoice === 2) ||
       (userChoice === 2 && compChoice === 0)
     ) {
-      resultMsg = 'あなたの勝ち';
+      resultElement.textContent = 'WIN!';
+      resultElement.style.color = '#00ff88';
     } else {
-      resultMsg = 'あなたの負け';
+      resultElement.textContent = 'LOSE';
+      resultElement.style.color = '#ff4b4b';
     }
-
-    document.getElementById('result').textContent = resultMsg;
   }
 </script>
 
 </body>
 </html>
-
