@@ -12,31 +12,30 @@
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
+    height: 100vh;
     overflow: hidden;
   }
-  .header {
-    margin-top: 5vh;
-    font-size: 24px;
-    letter-spacing: 4px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  }
-  .display-area {
-    flex-grow: 1;
+  .top-area {
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    position: relative;
+  }
+  .header {
+    position: absolute;
+    top: 5vh;
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
   .choices {
     display: flex;
     justify-content: space-around;
     width: 90%;
     max-width: 400px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     background: rgba(255, 255, 255, 0.1);
     padding: 30px 20px;
     border-radius: 20px;
@@ -62,15 +61,15 @@
     text-shadow: 0 4px 10px rgba(0,0,0,0.5);
     height: 50px;
   }
-  .buttons {
-    width: 100%;
+  .bottom-area {
+    flex: 1;
     display: flex;
     justify-content: center;
-    padding-bottom: 8vh;
-    padding-top: 20px;
+    align-items: flex-start;
+    padding-top: 30px;
     background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
   }
-  .buttons button {
+  .bottom-area button {
     font-size: 18px;
     padding: 15px 25px;
     margin: 0 10px;
@@ -84,11 +83,11 @@
     outline: none;
     font-weight: bold;
   }
-  .buttons button:hover {
+  .bottom-area button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
   }
-  .buttons button:active {
+  .bottom-area button:active {
     transform: translateY(1px);
     box-shadow: 0 2px 10px rgba(255, 126, 95, 0.4);
   }
@@ -99,9 +98,8 @@
 </head>
 <body>
 
-<div class="header">JANKEN GAME</div>
-
-<div class="display-area">
+<div class="top-area">
+  <div class="header">JANKEN GAME</div>
   <div class="choices">
     <div class="choice-box">
       <div class="label">あなた</div>
@@ -115,7 +113,7 @@
   <div id="result"></div>
 </div>
 
-<div class="buttons">
+<div class="bottom-area">
   <button onclick="play(0)">✊ グー</button>
   <button onclick="play(1)">✌️ チョキ</button>
   <button onclick="play(2)">✋ パー</button>
