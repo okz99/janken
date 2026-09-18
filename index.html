@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>じゃんけんゲーム</title>
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .buttons button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  #result {
+    font-size: 32px;
+    margin-top: 20px;
+    color: #ff0000;
+  }
+  .choices {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div>じゃんけんゲーム</div>
+
+<div class="buttons">
+  <button onclick="play(0)">グー</button>
+  <button onclick="play(1)">チョキ</button>
+  <button onclick="play(2)">パー</button>
+</div>
+
+<div class="choices">
+  <div>あなた: <span id="user-choice">-</span></div>
+  <div>あいて: <span id="comp-choice">-</span></div>
+</div>
+
+<div id="result"></div>
+
+<script>
+  function play(userChoice) {
+    const choices = ['グー', 'チョキ', 'パー'];
+    const compChoice = Math.floor(Math.random() * 3);
+
+    document.getElementById('user-choice').textContent = choices[userChoice];
+    document.getElementById('comp-choice').textContent = choices[compChoice];
+
+    let resultMsg = '';
+    if (userChoice === compChoice) {
+      resultMsg = '引き分け';
+    } else if (
+      (userChoice === 0 && compChoice === 1) ||
+      (userChoice === 1 && compChoice === 2) ||
+      (userChoice === 2 && compChoice === 0)
+    ) {
+      resultMsg = 'あなたの勝ち';
+    } else {
+      resultMsg = 'あなたの負け';
+    }
+
+    document.getElementById('result').textContent = resultMsg;
+  }
+</script>
+
+</body>
+</html>
+
